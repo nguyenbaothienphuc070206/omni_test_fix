@@ -1,0 +1,48 @@
+﻿{
+  "phase1": {
+    "accept_accuracy": 1.0,
+    "missing_parent_reject": 1.0,
+    "window_size": 1000
+  },
+  "phase2": {
+    "field_accuracy": 1.0,
+    "reject_accuracy": 1.0
+  },
+  "phase3": {
+    "consistency_accuracy": 1.0,
+    "load_aware_flip_rate": 0.93
+  },
+  "phase4": {
+    "accuracy": 1.0
+  },
+  "phase5": {
+    "accuracy": 1.0,
+    "f1": 1.0,
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "tn": 2
+  },
+  "phase6": {
+    "best_threshold": 0.05,
+    "accuracy": 0.9066666666666666,
+    "f1": 0.8372093023255813,
+    "thr": 0.05,
+    "tp": 72,
+    "fp": 0,
+    "fn": 28,
+    "tn": 200
+  },
+  "phase7": {
+    "skipped": false,
+    "correct": 1.0
+  },
+  "phase8": {
+    "route_existence_accuracy": 1.0,
+    "total": 14
+  },
+  "notes": {
+    "fraud_contract_accuracy": "synthetic labeled data; real accuracy needs real labels",
+    "dag_accuracy": "bounded-memory ledger; bloom filter used for parent existence checks"
+  }
+}

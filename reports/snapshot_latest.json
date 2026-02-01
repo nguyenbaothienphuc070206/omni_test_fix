@@ -1,0 +1,146 @@
+{
+  "accuracy": {
+    "notes": {
+      "dag_accuracy": "bounded-memory ledger; bloom filter used for parent existence checks",
+      "fraud_contract_accuracy": "synthetic labeled data; real accuracy needs real labels"
+    },
+    "phase1": {
+      "accept_accuracy": 1.0,
+      "missing_parent_reject": 1.0,
+      "window_size": 1000
+    },
+    "phase2": {
+      "field_accuracy": 1.0,
+      "reject_accuracy": 1.0
+    },
+    "phase3": {
+      "consistency_accuracy": 1.0,
+      "load_aware_flip_rate": 0.93
+    },
+    "phase4": {
+      "accuracy": 1.0
+    },
+    "phase5": {
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 2,
+      "tp": 3
+    },
+    "phase6": {
+      "accuracy": 0.9066666666666666,
+      "best_threshold": 0.05,
+      "f1": 0.8372093023255813,
+      "fn": 28,
+      "fp": 0,
+      "thr": 0.05,
+      "tn": 200,
+      "tp": 72
+    },
+    "phase7": {
+      "correct": 1.0,
+      "skipped": false
+    },
+    "phase8": {
+      "route_existence_accuracy": 1.0,
+      "total": 14
+    }
+  },
+  "bench": {
+    "non_tx_bench_sec": {
+      "phase5_audit_cached_2k": 0.004829000000427186,
+      "phase5_audit_uncached_500": 0.02193650000026537,
+      "phase7_he_50": 2.611499900000126
+    },
+    "sec": {
+      "build_tx": 0.13526600000022881,
+      "phase1_dag_store": 0.2286788000001252,
+      "phase1_validate": 0.06561619999956747,
+      "phase2_ingest": 0.30825759999970614,
+      "phase3_route": 0.10856909999984055,
+      "phase4_poi": 0.06570860000010725,
+      "phase5_audit_cached_2k": 0.004829000000427186,
+      "phase5_audit_uncached_500": 0.02193650000026537,
+      "phase6_fraud": 0.08151480000014999,
+      "phase7_he_50": 2.611499900000126
+    },
+    "tps": {
+      "build_tx": 147856.8154596585,
+      "phase1_dag_store": 87458.91617407932,
+      "phase1_validate": 304802.7773649165,
+      "phase2_ingest": 64880.80099247858,
+      "phase3_route": 184214.47723182171,
+      "phase4_poi": 76093.54026705543,
+      "phase6_fraud": 245354.2178839082
+    }
+  },
+  "estimate": {
+    "estimated_total_hms": "2:02:30",
+    "estimated_total_seconds": 7350.227710890997,
+    "sequential_sec_per_tx": 5.9536845000002364e-05,
+    "sequential_tps": 16796.32167273829,
+    "stage_breakdown": [
+      {
+        "ops": 20000,
+        "sec_per_op": 1.5412879999985307e-05,
+        "seconds": 0.30825759999970614,
+        "stage": "phase2_ingest",
+        "time_share": 0.25887969038306774
+      },
+      {
+        "ops": 20000,
+        "sec_per_op": 6.763300000011441e-06,
+        "seconds": 0.13526600000022881,
+        "stage": "build_tx",
+        "time_share": 0.11359856236942305
+      },
+      {
+        "ops": 20000,
+        "sec_per_op": 3.2808099999783734e-06,
+        "seconds": 0.06561619999956747,
+        "stage": "phase1_validate",
+        "time_share": 0.055105540106773265
+      },
+      {
+        "ops": 20000,
+        "sec_per_op": 1.143394000000626e-05,
+        "seconds": 0.2286788000001252,
+        "stage": "phase1_dag_store",
+        "time_share": 0.19204813422689437
+      },
+      {
+        "ops": 20000,
+        "sec_per_op": 5.428454999992027e-06,
+        "seconds": 0.10856909999984055,
+        "stage": "phase3_route",
+        "time_share": 0.09117807636585061
+      },
+      {
+        "ops": 20000,
+        "sec_per_op": 4.0757400000075e-06,
+        "seconds": 0.08151480000014999,
+        "stage": "phase6_fraud",
+        "time_share": 0.06845744009457233
+      },
+      {
+        "ops": 5000,
+        "sec_per_op": 1.314172000002145e-05,
+        "seconds": 0.06570860000010725,
+        "stage": "phase4_poi",
+        "time_share": 0.22073255645341852
+      }
+    ]
+  },
+  "inputs": {
+    "bench_N": 20000,
+    "poi_M": 5000,
+    "tx_target": 123456789
+  },
+  "notes": {
+    "fraud_metrics": "Fraud (phase6) accuracy/F1 are on synthetic labeled data; real accuracy requires real labels.",
+    "phase4_poi": "Measured on poi_M proofs; per-tx cost uses sec/poi_M.",
+    "phase5_phase7": "Phase 5 and Phase 7 are benchmarked separately and are not included in the per-tx sequential estimate by default.",
+    "sequential_model": "Estimate assumes phases run sequentially in a single worker. If you parallelize across workers/cores, wall-clock time can drop roughly with concurrency until another bottleneck dominates."
+  }
+}

@@ -7,8 +7,8 @@ import os
 extensions = [
     # Core Math Kernels (HPC)
     Extension(
-        name="math_core",
-        sources=["math_core.pyx"],
+        name="aegis_math",
+        sources=["aegis_math.pyx"],
         include_dirs=[numpy.get_include()],
         # Enable OpenMP for parallel execution
         extra_compile_args=["/openmp" if os.name == 'nt' else "-fopenmp", "-O3"],
@@ -17,21 +17,21 @@ extensions = [
     ),
     # Optimized Data Models (Extension Types)
     Extension(
-        name="data_models",
-        sources=["data_models.pyx"],
+        name="aegis_types",
+        sources=["aegis_types.pyx"],
         include_dirs=[numpy.get_include()],
         extra_compile_args=["-O3"],
         # language="c" # Removing language=c to allow standard cython compilation
     ),
     Extension(
-        name="preprocessing.ingestor",
-        sources=["preprocessing/ingestor.pyx"],
+        name="intake.decoder",
+        sources=["intake/decoder.pyx"],
         extra_compile_args=["-O3"]
     )
 ]
 
 setup(
-    name="project_omni_hpc",
+    name="aegis_hpc",
     ext_modules=cythonize(
         extensions,
         compiler_directives={

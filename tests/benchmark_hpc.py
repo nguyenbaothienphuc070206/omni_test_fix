@@ -8,9 +8,9 @@ import os
 # Ensure root directory is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from preprocessing.ingestor import parse_and_normalize_batch
-from data_models import Transaction
-from math_core import validate_dag_batch
+from intake.decoder import parse_and_normalize_batch
+from aegis_types import Transaction
+from aegis_math import validate_dag_batch
 
 def generate_dummy_data(n=1000):
     data = []

@@ -2,7 +2,7 @@ import json
 
 from fastapi.testclient import TestClient
 
-from main import app
+from aegis_app import app
 
 
 client = TestClient(app)
@@ -34,31 +34,31 @@ def test_phase3_shard_route():
     assert r.json()["shard"].startswith("shard_")
 
 
-def test_phase4_poi_roundtrip():
+def test_phase4_intel_roundtrip():
     vec = [1.0] * 64
     p = client.post(
-        "/api/v1/phase4/poi/prove",
+        "/api/v1/phase4/intel/prove",
         json={"tx_id": "tx1", "validator_id": "v1", "vector": vec},
     ).json()
     assert "proof" in p
 
     r = client.post(
-        "/api/v1/phase4/poi/verify",
+        "/api/v1/phase4/intel/verify",
         json={"validator_id": "v1", "tx_id": "tx1", "score": p["score"], "proof": p["proof"]},
     )
     assert r.status_code == 200
 
 
 def test_phase5_contract_audit_blocks_import():
-    r = client.post("/api/v1/phase5/contracts/audit", json={"source": "import os\nprint(1)\n"})
+    r = client.post("/api/v1/phase5/covenant/audit", json={"source": "import os\nprint(1)\n"})
     assert r.status_code == 200
     data = r.json()
     assert data["blocked"] is True
     assert len(data["issues"]) >= 1
 
 
-def test_phase6_fraud_score():
-    r = client.post("/api/v1/phase6/fraud/score", json={"sender": "alice", "amount": 100.0})
+def test_phase6_sentinel_score():
+    r = client.post("/api/v1/phase6/sentinel/score", json={"sender": "alice", "amount": 100.0})
     assert r.status_code == 200
     data = r.json()
     assert 0.0 <= data["risk"] <= 1.0

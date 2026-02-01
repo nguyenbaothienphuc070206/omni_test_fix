@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, validator
 import logging
 
-from utils.crypto import hash_password
+from toolkit.crypto import hash_password
 
 logging.basicConfig(
     level=logging.INFO,

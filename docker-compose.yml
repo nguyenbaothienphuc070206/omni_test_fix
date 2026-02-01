@@ -1,56 +1,56 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  backend:
+  api:
     build: .
-    container_name: omni_backend
+    container_name: aegis_api
     ports:
-      - "18000:8000"  # Un-popular port 18000
+      - "18000:8000" # Un-popular port 18000
     environment:
-      - DATABASE_URL=postgresql+asyncpg://omni_user:omni_pass@db:5432/omni_db
+      - DATABASE_URL=postgresql+asyncpg://aegis_user:aegis_pass@db:5432/aegis_db
       - REDIS_URL=redis://redis:6379/0
       - ENV=production
     depends_on:
       - db
       - redis
     networks:
-      - omni_net
+      - aegis_net
     restart: always
 
   db:
     image: postgres:15-alpine
-    container_name: omni_db
+    container_name: aegis_db
     ports:
-      - "15432:5432"  # Un-popular port 15432
+      - "15432:5432" # Un-popular port 15432
     environment:
-      - POSTGRES_USER=omni_user
-      - POSTGRES_PASSWORD=omni_pass
-      - POSTGRES_DB=omni_db
+      - POSTGRES_USER=aegis_user
+      - POSTGRES_PASSWORD=aegis_pass
+      - POSTGRES_DB=aegis_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - omni_net
+      - aegis_net
 
   redis:
     image: redis:7-alpine
-    container_name: omni_redis
+    container_name: aegis_redis
     ports:
-      - "16379:6379"  # Un-popular port 16379
+      - "16379:6379" # Un-popular port 16379
     networks:
-      - omni_net
+      - aegis_net
 
   prometheus:
     image: prom/prometheus
-    container_name: omni_prom
+    container_name: aegis_prom
     ports:
-      - "19090:9090"  # Un-popular port 19090
+      - "19090:9090" # Un-popular port 19090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - omni_net
+      - aegis_net
 
 networks:
-  omni_net:
+  aegis_net:
     driver: bridge
 
 volumes:

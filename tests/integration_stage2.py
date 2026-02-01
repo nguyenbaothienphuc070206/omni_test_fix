@@ -4,10 +4,10 @@ from fastapi.testclient import TestClient
 import json
 import time
 
-# Ensure we can import main
+# Ensure we can import the entrypoint
 sys.path.append(os.path.dirname(os.path.abspath(os.path.join(__file__, '..'))))
 
-from main import app
+from aegis_app import app
 
 client = TestClient(app)
 

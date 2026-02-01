@@ -36,4 +36,4 @@ RUN pip install --no-cache-dir \
 EXPOSE 8000
 
 # Run with uvloop, disable websockets to avoid dependency conflicts
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--loop", "uvloop", "--ws", "none"]
+CMD ["uvicorn", "aegis_app:app", "--host", "0.0.0.0", "--port", "8000", "--loop", "uvloop", "--ws", "none"]
