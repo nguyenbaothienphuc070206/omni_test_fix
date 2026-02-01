@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: omni_backend
+    ports:
+      - "18000:8000"  # Un-popular port 18000
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://omni_user:omni_pass@db:5432/omni_db
+      - REDIS_URL=redis://redis:6379/0
+      - ENV=production
+    depends_on:
+      - db
+      - redis
+    networks:
+      - omni_net
+    restart: always
+
+  db:
+    image: postgres:15-alpine
+    container_name: omni_db
+    ports:
+      - "15432:5432"  # Un-popular port 15432
+    environment:
+      - POSTGRES_USER=omni_user
+      - POSTGRES_PASSWORD=omni_pass
+      - POSTGRES_DB=omni_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - omni_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: omni_redis
+    ports:
+      - "16379:6379"  # Un-popular port 16379
+    networks:
+      - omni_net
+
+  prometheus:
+    image: prom/prometheus
+    container_name: omni_prom
+    ports:
+      - "19090:9090"  # Un-popular port 19090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - omni_net
+
+networks:
+  omni_net:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,0 +1,14 @@
+fastapi==0.95.2
+uvicorn
+uvloop; platform_system != "Windows"
+httpx==0.23.3
+redis
+asyncpg; platform_system != "Windows"
+pydantic<2
+cython; platform_system != "Windows"
+numpy; platform_system != "Windows"
+python-multipart
+prometheus-client
+websockets<14.0
+PyJWT
+phe
